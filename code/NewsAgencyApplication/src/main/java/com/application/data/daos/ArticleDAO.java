@@ -31,7 +31,7 @@ public class ArticleDAO implements ArticleDAOInterface {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		tx = session.beginTransaction();
-		List<Article> articles = (List<Article>)session.createQuery("FROM Author").list();
+		List<Article> articles = (List<Article>)session.createQuery("FROM Article").list();
 		tx.commit();
 		session.close();
 		return articles;

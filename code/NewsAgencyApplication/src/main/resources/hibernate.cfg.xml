@@ -10,7 +10,6 @@
 	<property name="hibernate.connection.password">root</property>
     <property name="hibernate.connection.pool_size">10</property>
     <property name="show_sql">true</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
-     <mapping class="com.concretepage.Person"/>          
+    <property name="hibernate.hbm2ddl.auto">update</property>    
    </session-factory>
 </hibernate-configuration>

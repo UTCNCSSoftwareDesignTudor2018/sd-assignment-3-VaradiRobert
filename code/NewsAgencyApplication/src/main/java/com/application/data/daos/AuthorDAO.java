@@ -61,7 +61,10 @@ public class AuthorDAO implements AuthorDAOInterface {
 		List<Author> authors = (List<Author>)session.createQuery(hql).list();
 		tx.commit();
 		session.close();
-		return authors.get(0);
+		if(authors.size() > 0) {
+			return authors.get(0);
+		}
+		return null;
 	}
 
 }

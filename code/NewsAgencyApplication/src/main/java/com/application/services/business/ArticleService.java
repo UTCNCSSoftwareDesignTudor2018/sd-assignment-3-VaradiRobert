@@ -1,6 +1,7 @@
 package com.application.services.business;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.application.data.daos.ArticleDAO;
 import com.application.data.daos.interfaces.ArticleDAOInterface;
@@ -43,8 +44,15 @@ public class ArticleService implements ArticleServiceInterface {
 
 	@Override
 	public Article getArticle(String authorUserName, String title) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Article> articles = articleDAO.findAllByAuthorUserName(authorUserName);
+		List<Article> filtered = articles.stream().filter(a -> {
+			return a.getTitle().equals(title);
+		}).collect(Collectors.toList());
+		if(filtered.size() > 0) {
+			return filtered.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

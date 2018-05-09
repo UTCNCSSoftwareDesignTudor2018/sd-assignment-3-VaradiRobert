@@ -13,5 +13,6 @@ dependencies {
    compile 'org.slf4j:slf4j-simple:1.7.7'
    compile 'org.javassist:javassist:3.15.0-GA'
    compile 'com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8'
+   compile('com.googlecode.json-simple:json-simple:1.1')
 }
 
