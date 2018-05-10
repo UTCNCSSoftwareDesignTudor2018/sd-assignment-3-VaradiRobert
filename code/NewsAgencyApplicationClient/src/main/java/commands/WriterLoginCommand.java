@@ -1,4 +1,4 @@
-package common.commands;
+package commands;
 
 import java.io.Serializable;
 

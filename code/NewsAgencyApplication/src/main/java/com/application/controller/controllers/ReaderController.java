@@ -9,7 +9,7 @@ import com.application.services.business.interfaces.ArticleServiceInterface;
 public class ReaderController {
 	private ArticleServiceInterface articleService;
 	public ReaderController() {
-		articleService = new ArticleService();
+		articleService = ArticleService.getInstance();
 	}
 	
 	public List<Article> getArticles() {

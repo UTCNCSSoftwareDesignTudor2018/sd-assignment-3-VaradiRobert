@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import controllers.Article;
 import controllers.ArticleProxy;
 import controllers.Controller;
+import controllers.Observer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class ViewArticlesAsReaderScene extends Scene {
+public class ViewArticlesAsReaderScene extends Scene implements Observer {
 	@SuppressWarnings("rawtypes")
 	private TableView table;
     @SuppressWarnings("rawtypes")
@@ -113,4 +114,9 @@ public class ViewArticlesAsReaderScene extends Scene {
 		data = FXCollections.observableList(articleProxies);
         return data;
     }
+
+	@Override
+	public void update(List<ArticleProxy> articles) {
+		data = FXCollections.observableList(articles);
+	}
 }

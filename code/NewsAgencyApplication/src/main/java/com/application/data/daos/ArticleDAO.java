@@ -40,13 +40,14 @@ public class ArticleDAO implements ArticleDAOInterface {
 	@Override
 	public List<Article> findAllByAuthorUserName(String userName) {
 		List<Article> articles = findAll();
-		return articles
+		List<Article> filtered = articles
 				.stream()
 				.filter(
 						a -> {
 							return a.getAuthor().getUserName().equals(userName);
 						})
 				.collect(Collectors.toList());
+		return filtered;
 	}
 
 }

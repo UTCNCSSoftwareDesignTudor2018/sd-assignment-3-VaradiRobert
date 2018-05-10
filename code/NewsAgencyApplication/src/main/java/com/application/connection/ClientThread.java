@@ -13,8 +13,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.application.controller.commands.Command;
+import com.application.controller.commands.CreateArticleCommand;
 import com.application.controller.commands.ReadArticleCommand;
 import com.application.controller.commands.ViewArticlesCommand;
+import com.application.controller.commands.ViewAuthorsArticlesCommand;
 import com.application.controller.commands.WriterLoginCommand;
 import com.application.controller.facade.ApplicationFacade;
 
@@ -43,16 +45,25 @@ public class ClientThread extends Thread {
     		WriterLoginCommand writerLoginCommand = new WriterLoginCommand(object.get("userName").toString(), object.get("password").toString());
     		response = applicationFacade.execute(writerLoginCommand);
     		System.out.println(response);
-    	}
-    	else if(commandType.equals(Command.Constants.VIEW_ARTICLES_COMMAND)) {
+    	} else if(commandType.equals(Command.Constants.VIEW_ARTICLES_COMMAND)) {
     		response = applicationFacade.execute(new ViewArticlesCommand());
-    	}
-    	else if(commandType.equals(Command.Constants.READ_ARTICLE_COMMAND)) {
+    	} else if(commandType.equals(Command.Constants.READ_ARTICLE_COMMAND)) {
     		String jsonString = in.readLine();
     		System.out.println(jsonString);
     		JSONObject object = (JSONObject)parser.parse(jsonString);
     		ReadArticleCommand readArticleCommand = new ReadArticleCommand(object.get("authorUserName").toString(), object.get("title").toString());
     		response = applicationFacade.execute(readArticleCommand);
+    	} else if(commandType.equals(Command.Constants.VIEW_AUTHORS_ARTICLES_COMMAND)) {
+    		String jsonString = in.readLine();
+    		JSONObject obj = (JSONObject)parser.parse(jsonString);
+    		ViewAuthorsArticlesCommand command = new ViewAuthorsArticlesCommand(obj.get("authorUserName").toString());
+    		response = applicationFacade.execute(command);
+    	} else if(commandType.equals(Command.Constants.CREATE_ARTICLE_COMMAND)) {
+    		String jsonString = in.readLine();
+    		System.out.println(jsonString);
+    		JSONObject obj = (JSONObject)parser.parse(jsonString);
+    		CreateArticleCommand command = new CreateArticleCommand(obj.get("userName").toString(), obj.get("title").toString(), obj.get("abstractContent").toString(), obj.get("body").toString());
+    		response = applicationFacade.execute(command);
     	}
     	System.out.println("Server response: " + response);
 		return response;

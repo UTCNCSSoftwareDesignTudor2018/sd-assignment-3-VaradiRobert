@@ -3,6 +3,8 @@ package views;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -56,9 +58,12 @@ public class LoginScene extends Scene {
     	    @Override
     	    public void handle(ActionEvent e) {
     	        try {
-					List<ArticleProxy> articles = controller.sendWriterLoginCommand(userNameTextField.getText(), passwordField.getText());
+    	        	String userName = userNameTextField.getText();
+					List<ArticleProxy> articles = controller.sendWriterLoginCommand(userName, passwordField.getText());
 					if(articles != null) {
-						stage.setScene(new ViewArticlesAsWriterScene(controller, userNameTextField.getText(), new VBox(20), articles, 500, 500, stage));
+						stage.setScene(new ViewArticlesAsWriterScene(controller, userName, new VBox(20), articles, 500, 500, stage));
+					} else {
+						
 					}
 				} catch (JsonGenerationException e1) {
 					e1.printStackTrace();

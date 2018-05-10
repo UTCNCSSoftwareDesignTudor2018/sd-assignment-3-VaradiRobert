@@ -41,9 +41,26 @@ public class ApplicationFacade {
 	public String execute(LogoutCommand command) {
 		return null;
 	}
+	@SuppressWarnings("unchecked")
 	public String execute(CreateArticleCommand command) {
-		writerController.createArticle(command.getTitle(), command.getAbstractContent(), command.getBody());
-		return "Update";
+		List<Article> articles = writerController.createArticle(command.getUserName(), command.getTitle(), command.getAbstractContent(), command.getBody());
+		JSONArray objects = new JSONArray();
+		for(Article a : articles) {
+			JSONObject obj = new JSONObject();
+			obj.put("title", a.getTitle());
+			obj.put("summary", a.getAbstractContent());
+			obj.put("authorFullName", a.getAuthor().getFirstName() + " " + a.getAuthor().getLastName());
+			obj.put("authorUserName", a.getAuthor().getUserName());
+			objects.add(obj);
+		}
+		String jsonResponse = null;
+		try {
+			jsonResponse = mapper.writeValueAsString(objects);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(jsonResponse);
+		return jsonResponse;
 	}
 	public String execute(UpdateArticleCommand command) {
 		writerController.updateArticle(command.getOldTitle(), command.getTitle(), command.getAbstractContent(), command.getBody());
@@ -54,12 +71,9 @@ public class ApplicationFacade {
 		return "Update";
 	}
 	
-	public String execute(ViewAuthorsArticlesCommand command) {
-		return null;
-	}
 	@SuppressWarnings("unchecked")
-	public String execute(ViewArticlesCommand command) {
-		List<Article> allArticles = readerController.getArticles();
+	public String execute(ViewAuthorsArticlesCommand command) {
+		List<Article> allArticles = writerController.getArticles();
 		JSONArray objects = new JSONArray();
 		for(Article a : allArticles) {
 			JSONObject obj = new JSONObject();
@@ -80,6 +94,28 @@ public class ApplicationFacade {
 		return jsonResponse;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public String execute(ViewArticlesCommand command) {
+		List<Article> allArticles = readerController.getArticles();
+		JSONArray objects = new JSONArray();
+		for(Article a : allArticles) {
+			JSONObject obj = new JSONObject();
+			obj.put("title", a.getTitle());
+			obj.put("summary", a.getAbstractContent());
+			obj.put("authorFullName", a.getAuthor().getFirstName() + " " + a.getAuthor().getLastName());
+			obj.put("authorUserName", a.getAuthor().getUserName());
+			objects.add(obj);
+		}
+		String jsonResponse = null;
+		try {
+			jsonResponse = mapper.writeValueAsString(objects);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonResponse;
+	}
+	
 	public String execute(ReadArticleCommand command) {
 		Article article = readerController.getArticle(command.getAuthorUserName(), command.getTitle());
 		String jsonResponse = null;
@@ -89,7 +125,6 @@ public class ApplicationFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(jsonResponse);
 		return jsonResponse;
 	}
 }

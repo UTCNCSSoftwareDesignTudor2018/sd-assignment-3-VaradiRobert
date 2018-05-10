@@ -1,10 +1,12 @@
 package com.application.controller.commands;
 
 public class CreateArticleCommand implements Command {
+	private String userName;
 	private String title;
 	private String abstractContent;
 	private String body;
-	public CreateArticleCommand(String title, String abstractContent, String body) {
+	public CreateArticleCommand(String userName, String title, String abstractContent, String body) {
+		this.userName = userName;
 		this.title = title;
 		this.abstractContent = abstractContent;
 		this.body = body;
@@ -27,4 +29,11 @@ public class CreateArticleCommand implements Command {
 	public void setBody(String body) {
 		this.body = body;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 }

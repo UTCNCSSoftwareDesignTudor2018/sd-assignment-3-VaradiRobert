@@ -21,8 +21,8 @@ public class WriterController {
 		}
 		return loggedIn;
 	}
-	public List<Article>createArticle(String title, String abstractContent, String body) {
-		return null;
+	public List<Article> createArticle(String userName, String title, String abstractContent, String body) {
+		return writerService.createArticle(title, abstractContent, body, userName);
 	}
 	public List<Article> updateArticle(String oldTitle, String title, String abstractContent, String body) {
 		return null;
@@ -32,5 +32,9 @@ public class WriterController {
 	}
 	public String logout() {
 		return null;
+	}
+
+	public List<Article> getArticles() {
+		return writerService.getArticles(currentUserName);
 	}
 }

@@ -1,11 +1,12 @@
-package common.commands;
+package commands;
 
-public class UpdateArticleCommand implements Command {
-	private String oldTitle;
+public class CreateArticleCommand implements Command {
+	private String userName;
 	private String title;
 	private String abstractContent;
 	private String body;
-	public UpdateArticleCommand(String title, String abstractContent, String body) {
+	public CreateArticleCommand(String userName, String title, String abstractContent, String body) {
+		this.userName = userName;
 		this.title = title;
 		this.abstractContent = abstractContent;
 		this.body = body;
@@ -28,10 +29,11 @@ public class UpdateArticleCommand implements Command {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public String getOldTitle() {
-		return oldTitle;
+	public String getUserName() {
+		return userName;
 	}
-	public void setOldTitle(String oldTitle) {
-		this.oldTitle = oldTitle;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+	
 }

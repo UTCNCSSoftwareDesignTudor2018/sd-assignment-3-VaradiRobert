@@ -16,7 +16,7 @@ public class AuthorService implements AuthorServiceInterface {
 	
 	public AuthorService() {
 		authorDAO = new AuthorDAO();
-		articleService = new ArticleService();
+		articleService = ArticleService.getInstance();
 	}
 
 	@Override
@@ -38,9 +38,10 @@ public class AuthorService implements AuthorServiceInterface {
 	}
 
 	@Override
-	public void createarticle(String title, String abstractContent, String body, String authorUserName) {
+	public List<Article> createArticle(String title, String abstractContent, String body, String authorUserName) {
 		Author author = authorDAO.findByUserName(authorUserName);
 		articleService.saveArticle(title, abstractContent, body, author);
+		return articleService.getArticles(authorUserName);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package common.commands;
+package commands;
 
 public interface Command {
 	static final class Constants {

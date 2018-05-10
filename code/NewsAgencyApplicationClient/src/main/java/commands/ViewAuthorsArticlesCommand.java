@@ -1,4 +1,4 @@
-package common.commands;
+package commands;
 
 public class ViewAuthorsArticlesCommand implements Command {
 	private String authorUserName;

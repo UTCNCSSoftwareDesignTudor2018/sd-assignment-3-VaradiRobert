@@ -1,4 +1,4 @@
-package common.commands;
+package commands;
 
 public class LogoutCommand implements Command {
 
